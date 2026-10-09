@@ -1,0 +1,10 @@
+# Dependencias del proyecto.
+# Cuando todo funcione, fijar versiones con:  pip freeze > requirements.txt
+# (la constitution exige dependencias fijadas en la entrega)
+
+# Base de datos y configuracion
+pyodbc
+python-dotenv
+
+# Datos sinteticos (proximo paso)
+faker
