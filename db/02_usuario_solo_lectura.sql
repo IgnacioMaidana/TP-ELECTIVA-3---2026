@@ -16,7 +16,7 @@ GO
 
 IF NOT EXISTS (SELECT 1 FROM sys.server_principals WHERE name = N'agente_ro')
     CREATE LOGIN agente_ro
-        WITH PASSWORD = N'12343',   -- <== CAMBIAR
+        WITH PASSWORD = N'agente12343',
              CHECK_POLICY = ON,
              DEFAULT_DATABASE = EcommerceTech;
 GO
