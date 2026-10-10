@@ -39,7 +39,7 @@ DB_ADMIN_PASSWORD = os.getenv("DB_ADMIN_PASSWORD", "")
 
 # Conexion de solo lectura (la usa el agente)
 DB_USER = os.getenv("DB_USER", "agente_ro")
-DB_PASSWORD = os.getenv("DB_PASSWORD", "agente12343")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "")
 
 # --- RAG ---
 EMBEDDING_MODEL = os.getenv(
@@ -50,6 +50,7 @@ RAG_TOP_K = int(os.getenv("RAG_TOP_K", "4"))
 # --- SQL ---
 SQL_MAX_ROWS = int(os.getenv("SQL_MAX_ROWS", "100"))
 SQL_RETRIES = int(os.getenv("SQL_RETRIES", "2"))
+SQL_TIMEOUT_SEGUNDOS = int(os.getenv("SQL_TIMEOUT_SEGUNDOS", "15"))
 
 # --- Observabilidad ---
 LANGSMITH_TRACING = _bool("LANGSMITH_TRACING", False)
