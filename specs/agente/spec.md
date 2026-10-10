@@ -51,7 +51,7 @@ Una tienda online de tecnología guarda sus datos operativos (clientes, producto
 
 Esquema de referencia: `01_crear_esquema_ecommerce.sql`.
 
-**Período de los datos:** pedidos de los últimos 12 meses respecto de la fecha de generación, con semilla fija para que sean reproducibles.
+**Período de los datos:** pedidos de los últimos 12 meses respecto de la fecha de generación, con semilla fija para que sean reproducibles. **Moneda:** dólares estadounidenses (USD).
 
 ### 3.2 Documentos PDF (mínimo 2)
 
@@ -61,6 +61,24 @@ Esquema de referencia: `01_crear_esquema_ecommerce.sql`.
 | **Catálogo y especificaciones técnicas** | Descripción y características técnicas de los productos y categorías de la tienda. |
 
 Los PDFs deben ser **coherentes con la base** (mismas categorías y productos) para que las preguntas híbridas tengan sentido.
+
+### 3.3 Definiciones de negocio
+
+Términos que el agente debe interpretar siempre igual, y que deben coincidir con los PDFs y con las pruebas.
+
+| Término | Definición |
+|---|---|
+| **Venta válida** | Pedido en estado `pagado`, `enviado` o `entregado`. Se excluyen `cancelado`, `pendiente` y `devuelto` |
+| **Ingresos** | Suma de `detalle_pedidos.subtotal` de ventas válidas |
+| **Unidades vendidas** | Suma de `detalle_pedidos.cantidad` de ventas válidas |
+| **Producto más vendido** | El de mayor cantidad de unidades vendidas |
+| **Categoría con más ventas** | La de mayores ingresos |
+| **Cliente que compra** en una categoría | Cliente con al menos una venta válida de un producto de esa categoría |
+| **Buena reseña** | Calificación mayor a 3 (4 o 5) |
+| **Entrega tardía** | Envío entregado cuya fecha de entrega real es posterior a la estimada |
+| **Plazo de devolución** | 30 días corridos desde la entrega real (RF-17) |
+
+Ante una pregunta ambigua (por ejemplo "más ventas"), el agente aplica estas definiciones y las **menciona en la respuesta** para que el usuario sepa qué se midió.
 
 ## 4. Historias de usuario
 

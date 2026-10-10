@@ -6,5 +6,21 @@
 pyodbc
 python-dotenv
 
-# Datos sinteticos (proximo paso)
+# Datos sinteticos
 faker
+
+# Herramienta SQL
+sqlglot
+pytest
+
+# LLM (Gemini, nivel gratuito)
+langchain-google-genai
+
+# PDFs (generacion y lectura)
+reportlab
+pypdf
+
+# Proximas fases (instalar cuando se necesiten):
+#   chromadb, sentence-transformers   -> RAG (Fase 3)
+#   langgraph                         -> agente (Fase 4)
+#   streamlit                         -> interfaz (Fase 5)
