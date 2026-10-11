@@ -58,6 +58,10 @@ REGLAS_NEGOCIO = """\
 - Plazo de devolución: 30 días corridos desde fecha_entrega_real. Solo cuenta si el pedido
   tiene estado 'entregado'. Si se te entrega contexto documental con otro plazo, usa ese número.
   Un pedido sin fecha_entrega_real, cancelado o devuelto NO tiene plazo de devolución activo.
+- CUIDADO al unir pedidos con detalle_pedidos: cada pedido aparece una vez por cada línea. Por eso NO se
+  suma pedidos.total ni se cuenta p.id_pedido a secas: usa SUM(detalle_pedidos.subtotal) para ingresos y
+  COUNT(DISTINCT p.id_pedido) para la cantidad de pedidos. SUM(pedidos.total) solo es válido sin unir con
+  detalle_pedidos.
 - Si no se indica un período, no se filtra por fecha."""
 
 REGLAS_TSQL = """\

@@ -45,7 +45,13 @@ DB_PASSWORD = os.getenv("DB_PASSWORD", "")
 EMBEDDING_MODEL = os.getenv(
     "EMBEDDING_MODEL", "paraphrase-multilingual-MiniLM-L12-v2"
 )
-RAG_TOP_K = int(os.getenv("RAG_TOP_K", "4"))
+RAG_TOP_K = int(os.getenv("RAG_TOP_K", "5"))
+RAG_UMBRAL = float(os.getenv("RAG_UMBRAL", "0.30"))        # similitud minima (provisoria; calibrar)
+RAG_CHUNK_CHARS = int(os.getenv("RAG_CHUNK_CHARS", "450"))  # ~110 tokens: el modelo admite 128
+RAG_SOLAPE_CHARS = int(os.getenv("RAG_SOLAPE_CHARS", "80"))
+RAG_COLECCION = "documentos"
+DIR_PDFS = RAIZ / "data" / "pdfs"
+DIR_VECTORSTORE = RAIZ / "data" / "vectorstore"
 
 # --- SQL ---
 SQL_MAX_ROWS = int(os.getenv("SQL_MAX_ROWS", "100"))

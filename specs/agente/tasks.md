@@ -38,20 +38,20 @@ Cada tarea es pequeña, verificable y referencia los requisitos que cubre. Marca
 ## Fase 3 — PDFs y RAG (10/10)
 
 - [x] **T-16** `scripts/generar_pdfs.py`: crea `politica_devoluciones_garantias.pdf` (con la regla de 30 días desde la entrega, garantías por categoría coherentes con la BD) y `catalogo_especificaciones.pdf` (productos reales de la BD). *(§3.2, RF-17, CA-18)*
-- [ ] **T-17** `rag/ingest.py`: lectura por página, chunking, embeddings, ChromaDB con metadatos. Idempotente. *(RF-04, RF-07)*
-- [ ] **T-18** `tests/test_ingest.py`: cada chunk tiene `documento` y `pagina`; los 2 PDFs están indexados. *(CA-18)*
-- [ ] **T-19** `rag/retriever.py`: top-k con umbral y mensaje de "sin resultados". **Verificar** con 3 preguntas en ES y 3 en EN. *(RF-04, RF-11, CA-05 a CA-07)*
+- [x] **T-17** `rag/ingest.py`: lectura por página, chunking, embeddings, ChromaDB con metadatos. Idempotente. *(RF-04, RF-07)*
+- [x] **T-18** `tests/test_ingest.py`: cada chunk tiene `documento` y `pagina`; los 2 PDFs están indexados. *(CA-18)*
+- [x] **T-19** `rag/retriever.py`: top-k con umbral y mensaje de "sin resultados". **Verificar** con 3 preguntas en ES y 3 en EN. *(RF-04, RF-11, CA-05 a CA-07)*
 
 ## Fase 4 — Agente con LangGraph (11-12/10)
 
-- [ ] **T-20** `agent/state.py` y `agent/prompts.py`: estado, prompts del router, SQL y síntesis (con delimitadores de datos no confiables). *(D-14, CA-13)*
-- [ ] **T-21** `agent/router.py`: salida estructurada `ruta`, `idioma`, `justificacion`. *(RF-02, RF-05)*
-- [ ] **T-22** Nodos `rag_node`, `sql_gen`, `sql_validate`, `sql_exec`. *(RF-03, RF-04, RF-09)*
-- [ ] **T-23** Nodo `synthesize`: idioma correcto, citas `[Documento, p. N]`, cero filas, truncado. *(RF-02, RF-07, RF-10, RF-14)*
-- [ ] **T-24** Nodos `rechazar`, `fuera_de_alcance`, `aclarar`. *(RF-11, RF-12, RF-13, CA-11, CA-14, CA-15)*
-- [ ] **T-25** `graph.py`: armar el grafo con la ruta híbrida RAG→SQL. **Verificar** CA-08 y CA-20, y la pregunta híbrida del reintegro de envío (regla del PDF §6: más de 2 días de demora + SQL). *(RF-06, RF-17)*
-- [ ] **T-26** Inyectar fecha actual y memoria de sesión. **Verificar** CA-16. *(RF-15, D-12)*
-- [ ] **T-27** `logging_utils.py`: log JSON por pregunta (ruta, justificación, SQL, chunks, latencia). *(RF-16, RNF-05, CA-10)*
+- [x] **T-20** `agent/state.py` y `agent/prompts.py`: estado, prompts del router, SQL y síntesis (con delimitadores de datos no confiables). *(D-14, CA-13)*
+- [x] **T-21** `agent/router.py`: salida estructurada `ruta`, `idioma`, `justificacion` y `consulta_documentos` (la pregunta reescrita en castellano para buscar en los PDFs, D-20). *(RF-02, RF-05)*
+- [x] **T-22** Nodos `rag_node`, `sql_gen`, `sql_validate`, `sql_exec`. *(RF-03, RF-04, RF-09)*
+- [x] **T-23** Nodo `synthesize`: idioma correcto, citas `[Documento, p. N]`, cero filas, truncado. *(RF-02, RF-07, RF-10, RF-14)*
+- [x] **T-24** Nodos `rechazar`, `fuera_de_alcance`, `aclarar`. *(RF-11, RF-12, RF-13, CA-11, CA-14, CA-15)*
+- [x] **T-25** `graph.py`: armar el grafo con la ruta híbrida RAG→SQL. **Verificar** CA-08 y CA-20, y la pregunta híbrida del reintegro de envío (regla del PDF §6: más de 2 días de demora + SQL). *(RF-06, RF-17)*
+- [x] **T-26** Inyectar fecha actual y memoria de sesión. **Verificar** CA-16. *(RF-15, D-12)*
+- [X] **T-27** `logging_utils.py`: log JSON por pregunta (ruta, justificación, SQL, chunks, latencia). *(RF-16, RNF-05, CA-10)*
 
 ## Fase 5 — Interfaz y evaluación (13/10)
 
@@ -64,7 +64,7 @@ Cada tarea es pequeña, verificable y referencia los requisitos que cubre. Marca
 ## Fase 6 — Documentación y entrega (14-15/10)
 
 - [ ] **T-32** README: requisitos, instalación, creación y carga de BD, indexado de PDFs, ejecución, ejecución de tests. **Verificar** siguiéndolo en una carpeta limpia. *(RNF-04, CA-19)*
-- [ ] **T-33** Capturas y logs de al menos un ejemplo de cada ruta (SQL, RAG, híbrida, rechazo). *(entregable)*
+- [X] **T-33** Capturas y logs de al menos un ejemplo de cada ruta (SQL, RAG, híbrida, rechazo). *(entregable)*
 - [ ] **T-34** Informe técnico (máx. 10 páginas): modelo de datos, arquitectura, decisiones, ejemplos, evidencias, resultados de la suite. *(entregable)*
 - [ ] **T-35** Verificar que `specs/` contiene todos los artefactos y que `spec.md` refleja los cambios hechos durante la implementación. *(SDD)*
 - [ ] **T-42** Fijar las versiones de las dependencias con `pip freeze > requirements.txt` y verificar que el entorno se recrea. *(RNF-04, constitution §6)*
@@ -72,6 +72,8 @@ Cada tarea es pequeña, verificable y referencia los requisitos que cubre. Marca
 
 ## Fase 7 — Margen y extras (15-16/10)
 
+- [ ] **T-44** Documentar en el informe el hallazgo de la duplicación de filas (consulta del mes anterior: 47 pedidos y USD 36.773,15 contra 24 y USD 13.605,55 reales) y su corrección en el prompt y los ejemplos. *(RNF-02)*
+- [ ] **T-45** Regenerar los datos (`python -m scripts.generar_datos`) el día de la suite de evaluación y del coloquio: los casos límite de la regla de 30 días son relativos a la fecha de generación. *(RF-17)*
 - [ ] **T-37** Revisión final del repositorio y entrega **antes de las 23:59 del 16/10**.
 - [ ] **T-38** *(opcional)* LangSmith: activar variables de entorno y capturar trazas. *(promoción adicional)*
 - [ ] **T-39** *(opcional)* Despliegue en la nube. Solo si todo lo anterior está cerrado.
@@ -98,5 +100,5 @@ Cada tarea es pequeña, verificable y referencia los requisitos que cubre. Marca
 
 1. Cumple lo descrito y su criterio de verificación.
 2. Tiene pruebas, o evidencia, cuando corresponde.
-3. Está documentada (docstrings) y commiteada con su ID.
+3. Está documentada (docstrings)
 4. Si cambió un requisito, la spec se actualizó **antes**.

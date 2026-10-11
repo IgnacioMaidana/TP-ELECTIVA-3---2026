@@ -30,6 +30,12 @@ CASOS = [
      "SELECT AVG(CAST(calificacion AS FLOAT)) FROM resenas"),
     ("¿Cuántos productos tienen garantía mayor a 24 meses?",
      "SELECT COUNT(*) FROM productos WHERE garantia_meses > 24"),
+    # Regresion de la duplicacion de filas (JOIN pedidos-detalle): ingresos y pedidos validos
+    ("What is the total revenue?",
+     "SELECT SUM(d.subtotal) FROM detalle_pedidos d JOIN pedidos p ON p.id_pedido = d.id_pedido "
+     "WHERE p.estado IN ('pagado', 'enviado', 'entregado')"),
+    ("¿Cuántos pedidos válidos hay?",
+     "SELECT COUNT(*) FROM pedidos WHERE estado IN ('pagado', 'enviado', 'entregado')"),
 ]
 
 

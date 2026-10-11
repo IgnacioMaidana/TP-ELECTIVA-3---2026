@@ -12,6 +12,11 @@ def test_el_prompt_describe_las_7_tablas():
         assert f"{tabla}(" in prompt, f"Falta describir la tabla {tabla}"
 
 
+def test_el_prompt_advierte_sobre_la_duplicacion_de_filas():
+    prompt = construir_prompt_sql()
+    assert "COUNT(DISTINCT p.id_pedido)" in prompt and "SUM(detalle_pedidos.subtotal)" in prompt
+
+
 def test_incluye_la_fecha_de_hoy():
     assert "Fecha de hoy: 2026-10-08" in construir_prompt_sql(hoy=date(2026, 10, 8))
 

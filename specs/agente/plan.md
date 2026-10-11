@@ -50,13 +50,14 @@ El agente es un **grafo de estados en LangGraph**: un nodo router decide la ruta
 | D-07 | Auto-corrección: hasta **2 reintentos** pasando el error de SQL Server al LLM | Sin reintentos | Mejora robustez sin bucles infinitos | RF-09 |
 | D-08 | Embeddings multilingües `paraphrase-multilingual-MiniLM-L12-v2` (o `multilingual-e5-small`) | Embeddings de API | Gratis, locales, ES/EN, reproducible | RF-01, RF-04 |
 | D-09 | ChromaDB persistente en `data/vectorstore/` | FAISS | Guarda metadatos (documento, página) directamente | RF-07 |
-| D-10 | Chunking: ~600 tokens, solape ~100, respetando página; metadatos `documento`, `pagina` | Chunks por caracteres fijos | Citas exactas | RF-07 |
-| D-11 | Recuperación top-k = 4, con umbral mínimo de similitud; si nada supera el umbral → "no encontré en los documentos" | Siempre responder con lo recuperado | Evita inventar | RF-11, RNF-02 |
+| D-10 | Chunking: ~450 caracteres (≈110 tokens, porque el modelo de embeddings admite 128), solape 80 caracteres, cortes en límite de oración sin cruzar páginas; metadatos `documento`, `pagina` | Chunks por caracteres fijos | Citas exactas | RF-07 |
+| D-11 | Recuperación top-k = 5, con umbral mínimo de similitud (provisorio 0.30, calibrado con `scripts/calibrar_rag.py`); si nada supera el umbral → "no encontré en los documentos" | Siempre responder con lo recuperado | Evita inventar | RF-11, RNF-02 |
 | D-12 | Fecha actual inyectada al prompt (`SYSDATE` del servidor) | Que el LLM la suponga | Cálculos de plazo y "mes anterior" correctos | RF-17, CA-16 |
 | D-13 | Memoria de sesión: últimos N mensajes en el estado del grafo | Sin memoria | Preguntas de seguimiento | RF-15 |
 | D-14 | Contenido de PDF y filas de BD se pasan al LLM dentro de delimitadores marcados como **datos no confiables** | Mezclar con instrucciones | Mitiga inyección indirecta | CA-13 |
 | D-15 | Logging estructurado JSON por pregunta: ruta, justificación, SQL, intentos, chunks (doc/página), latencia | `print` | Evidencia para el informe | RF-16, RNF-05 |
 | D-16 | PDFs sintéticos generados con script (`fpdf2` o `reportlab`) a partir de las categorías y productos reales de la BD | PDFs escritos a mano | Coherencia BD–PDF y reproducibilidad | §3.2 spec |
+| D-20 | Cada fragmento lleva como prefijo el título de su sección; el router reescribe la pregunta en castellano (`consulta_documentos`) antes de buscar | Buscar con la pregunta tal cual | Prueba real: una pregunta en inglés recuperaba fragmentos poco relevantes porque los PDFs están en castellano y el modelo multilingüe pierde precisión entre idiomas | RF-01, RF-04 |
 | D-18 | LLM accedido solo desde `src/llm.py` (fábrica de modelo de chat de LangChain) con proveedor por variable de entorno; **Gemini gratuito** por defecto | Llamar al SDK de un proveedor en cada módulo | Costo cero y cambio de proveedor sin tocar el grafo | constitution §2 |
 | D-19 | Control de límites del nivel gratuito: reintentos con espera creciente ante error 429 y pausa entre preguntas en la suite de evaluación | Ignorar los límites | El nivel gratuito limita solicitudes por minuto y por día | RNF-03 |
 | D-17 | Datos sintéticos con `Faker (es_AR)` y semilla fija; consistencia forzada entre tablas | Datos aleatorios sueltos | Consultas con sentido | RNF-04, CA-17 |
@@ -113,15 +114,15 @@ Reglas de `sql_validate`, aplicadas en orden:
 
 | Tabla | Cantidad objetivo | Reglas de consistencia |
 |---|---|---|
-| `categorias` | 8 | Nombres fijos (Notebooks, Smartphones, Monitores, Periféricos, Audio, Almacenamiento, Redes, Gaming) |
-| `productos` | 40 | Precio y garantía coherentes con la categoría |
+| `categorias` | 16 | Nombres fijos (Notebooks, Smartphones, Tablets, Monitores, Teclados, Mouses, Auriculares, Parlantes, Almacenamiento, Routers y redes, Impresoras, Cámaras web, Consolas, Micrófonos, Smartwatches, Cables y accesorios). Son 16 porque el enunciado exige más de 15 registros por tabla |
+| `productos` | 48 (3 por categoría) | Marcas ficticias; precio en USD; garantía fija por categoría (6, 12, 24 o 36 meses), igual a la que dirá el PDF; 3 agotados y 2 discontinuados |
 | `clientes` | 60 | Países mayormente AR, con algunos de otros países |
 | `pedidos` | 250 | Fechas en los últimos 12 meses; estados en proporción realista |
-| `detalle_pedidos` | ~600 | 1 a 4 líneas por pedido; `precio_unitario` = precio vigente del producto |
-| `envios` | uno por cada pedido en estado enviado/entregado/devuelto | Estado de envío coherente con el del pedido; `fecha_entrega_real` solo si entregado |
+| `detalle_pedidos` | ~520 | 1 a 4 líneas por pedido; `precio_unitario` = precio vigente del producto |
+| `envios` | ~210 (uno por cada pedido enviado, entregado o devuelto) | Estado de envío coherente con el del pedido; `fecha_entrega_real` solo si entregado |
 | `resenas` | ~120 | Solo de clientes que compraron ese producto; una por cliente y producto |
 
-Reglas globales: `pedidos.total` = suma de `detalle_pedidos.subtotal`; pedidos `cancelado` y `pendiente` sin envío; incluir **casos límite** para la regla de 30 días (entregas hace 5, 29, 30, 31 y 60 días).
+Reglas globales: `pedidos.total` = suma de `detalle_pedidos.subtotal`; pedidos `cancelado` y `pendiente` sin envío; el **cliente 12** concentra los **casos límite** de la regla de 30 días (entregas hace 5, 29, 30, 31 y 60 días, más un pedido devuelto, uno en tránsito y uno cancelado). Moneda: USD. Semilla fija (42); las fechas son relativas a la fecha de generación.
 
 ## 7. Estructura del repositorio
 

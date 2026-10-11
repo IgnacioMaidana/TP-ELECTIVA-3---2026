@@ -20,7 +20,11 @@ langchain-google-genai
 reportlab
 pypdf
 
-# Proximas fases (instalar cuando se necesiten):
-#   chromadb, sentence-transformers   -> RAG (Fase 3)
-#   langgraph                         -> agente (Fase 4)
-#   streamlit                         -> interfaz (Fase 5)
+# Agente e interfaz
+langchain-core
+langgraph
+streamlit
+
+# RAG
+chromadb
+sentence-transformers

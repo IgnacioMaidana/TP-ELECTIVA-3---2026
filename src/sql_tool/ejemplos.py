@@ -110,4 +110,19 @@ EJEMPLOS = [
             "ORDER BY promedio"
         ),
     },
+    {
+        "pregunta": "¿Cuántos pedidos, ingresos y unidades vendimos el mes pasado?",
+        "ensena": "al unir pedidos con detalle_pedidos NO sumar pedidos.total ni contar pedidos sin DISTINCT",
+        "sql": (
+            "SELECT COUNT(DISTINCT p.id_pedido) AS total_pedidos,\n"
+            "       SUM(d.subtotal) AS ingresos,\n"
+            "       SUM(d.cantidad) AS unidades\n"
+            "FROM pedidos p\n"
+            "JOIN detalle_pedidos d ON d.id_pedido = p.id_pedido\n"
+            "WHERE p.estado IN ('pagado', 'enviado', 'entregado')\n"
+            "  AND p.fecha_pedido >= DATEFROMPARTS(YEAR(DATEADD(MONTH, -1, GETDATE())),\n"
+            "                                      MONTH(DATEADD(MONTH, -1, GETDATE())), 1)\n"
+            "  AND p.fecha_pedido < DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)"
+        ),
+    },
 ]
