@@ -9,9 +9,10 @@ python-dotenv
 # Datos sinteticos
 faker
 
-# Herramienta SQL
+# Herramienta SQL y pruebas
 sqlglot
 pytest
+pyyaml
 
 # LLM (Gemini, nivel gratuito)
 langchain-google-genai

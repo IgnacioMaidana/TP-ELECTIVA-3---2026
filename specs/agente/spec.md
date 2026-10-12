@@ -75,6 +75,7 @@ Términos que el agente debe interpretar siempre igual, y que deben coincidir co
 | **Categoría con más ventas** | La de mayores ingresos |
 | **Cliente que compra** en una categoría | Cliente con al menos una venta válida de un producto de esa categoría |
 | **Buena reseña** | Calificación mayor a 3 (4 o 5) |
+| **Producto agotado** | Producto activo (`activo = 1`) con stock 0. Los discontinuados no cuentan |
 | **Entrega tardía** | Envío entregado cuya fecha de entrega real es posterior a la estimada |
 | **Plazo de devolución** | 30 días corridos desde la entrega real (RF-17) |
 

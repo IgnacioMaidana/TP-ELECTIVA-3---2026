@@ -88,3 +88,13 @@ def test_no_quedan_pies_de_pagina_en_los_fragmentos():
         for f in construir_fragmentos(pdf):
             assert "TechNova Store - Política" not in f["texto"]
             assert "TechNova Store - Catálogo" not in f["texto"]
+
+
+def test_la_tabla_de_garantias_queda_completa_en_un_solo_fragmento():
+    """Si la tabla se parte, el RAG no puede responder preguntas de minimo/maximo (hallazgo RAG-09)."""
+    from scripts.generar_datos import CATALOGO
+    politica = next(p for p in PDFS if "politica" in p.name)
+    fragmentos = construir_fragmentos(politica)
+    categorias = [c[0] for c in CATALOGO]
+    assert any(all(f"{c} " in f["texto"] for c in categorias) for f in fragmentos), \
+        "Ningun fragmento contiene las 16 categorias de la tabla de garantias"

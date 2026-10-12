@@ -6,6 +6,7 @@ pregunta autosuficiente y la consulta en castellano para los documentos (D-20).
 import json
 import re
 
+from src.agent.idioma import corregir_idioma
 from src.agent.prompts import RUTAS, prompt_router
 from src.llm import invocar
 
@@ -49,15 +50,25 @@ def parsear_decision(texto: str, pregunta: str = ""):
 def decidir(pregunta: str, historial: list, hoy: str) -> dict:
     """Clasifica la pregunta. Si el LLM no devuelve un JSON valido tras 2 intentos,
     usa la ruta "hibrida" (consulta ambas fuentes, ambas de solo lectura)."""
-    mensajes = [("system", prompt_router(hoy)),
-                ("human", f"{_historial_a_texto(historial)}Pregunta actual: {pregunta}")]
-    for _ in range(2):
+    sistema = prompt_router(hoy)
+    humano = f"{_historial_a_texto(historial)}Pregunta actual: {pregunta}"
+    invalida = ""
+    for intento in (1, 2):
+        # En el reintento se repite la MISMA consulta y el aviso de formato va en el mensaje de
+        # sistema. Antes se agregaba un turno "human" con el recordatorio, y el modelo lo tomaba
+        # como un intento del usuario de cambiar sus instrucciones y respondia "rechazar".
+        aviso = "" if intento == 1 else ("\n\nIMPORTANTE: tu respuesta anterior no era un JSON válido. "
+                                          "Responde únicamente con el objeto JSON pedido.")
+        mensajes = [("system", sistema + aviso), ("human", humano)]
         respuesta = invocar(mensajes)
         decision = parsear_decision(respuesta, pregunta)
         if decision:
+            decision["idioma"] = corregir_idioma(pregunta, decision["idioma"])
+            decision["intentos_router"] = intento
+            decision["respuesta_invalida"] = invalida
             return decision
-        mensajes += [("ai", respuesta),
-                     ("human", "Responde únicamente con el objeto JSON pedido, sin texto adicional.")]
-    return {"ruta": "hibrida", "idioma": "es", "pregunta_autonoma": pregunta,
+        invalida = invalida or respuesta[:300]        # guarda la primera respuesta rechazada (diagnostico)
+    return {"ruta": "hibrida", "idioma": corregir_idioma(pregunta, "es"), "pregunta_autonoma": pregunta,
             "justificacion": "El router no devolvió un JSON válido; se consultan ambas fuentes.",
-            "consulta_documentos": pregunta, "mensaje_aclaracion": ""}
+            "consulta_documentos": pregunta, "mensaje_aclaracion": "",
+            "intentos_router": 2, "respuesta_invalida": invalida}

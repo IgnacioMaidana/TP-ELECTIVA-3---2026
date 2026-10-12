@@ -54,6 +54,7 @@ REGLAS_NEGOCIO = """\
 - Ingresos = SUM(detalle_pedidos.subtotal). Unidades = SUM(detalle_pedidos.cantidad).
 - "Producto más vendido" se mide en unidades. "Categoría con más ventas" se mide en ingresos.
 - Buena reseña: calificacion > 3 (es decir 4 o 5).
+- Producto agotado: activo = 1 y stock = 0. Los productos discontinuados (activo = 0) no cuentan como agotados.
 - Entrega tardía: envios.estado_envio = 'entregado' AND fecha_entrega_real > fecha_entrega_estimada.
 - Plazo de devolución: 30 días corridos desde fecha_entrega_real. Solo cuenta si el pedido
   tiene estado 'entregado'. Si se te entrega contexto documental con otro plazo, usa ese número.

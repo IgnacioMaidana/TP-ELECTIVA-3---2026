@@ -18,6 +18,8 @@ class EstadoAgente(TypedDict, total=False):
     pregunta_autonoma: str   # la pregunta reescrita sin depender del historial
     consulta_documentos: str  # la pregunta reescrita en castellano para buscar en los PDFs (D-20)
     mensaje_aclaracion: str  # pregunta de aclaracion (solo ruta "aclarar")
+    intentos_router: int     # cuantas llamadas necesito el router para devolver un JSON valido
+    respuesta_invalida: str  # primera respuesta del router que no se pudo interpretar (diagnostico)
 
     # --- resultados de las herramientas ---
     fragmentos: list         # fragmentos de PDFs recuperados (RAG)

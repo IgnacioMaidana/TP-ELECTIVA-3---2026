@@ -19,6 +19,7 @@ ESPERA_INICIAL_SEGUNDOS = 10
 
 _modelo = None
 _ultima_llamada = 0.0
+espera_acumulada_s = 0.0   # segundos dormidos por pausas y reintentos (para medir la latencia neta)
 
 
 def obtener_modelo():
@@ -65,18 +66,20 @@ def invocar(mensajes) -> str:
 
     `mensajes` es una lista de tuplas (rol, texto) con rol "system", "human" o "ai".
     """
-    global _ultima_llamada
+    global _ultima_llamada, espera_acumulada_s
     espera = ESPERA_INICIAL_SEGUNDOS
     for intento in range(REINTENTOS + 1):
         pausa = config.LLM_PAUSA_SEGUNDOS - (time.monotonic() - _ultima_llamada)
         if pausa > 0:
             time.sleep(pausa)
+            espera_acumulada_s += pausa
         _ultima_llamada = time.monotonic()
         try:
             return _a_texto(obtener_modelo().invoke(mensajes).content).strip()
         except Exception as error:
             if intento < REINTENTOS and _es_error_transitorio(error):
                 time.sleep(espera)
+                espera_acumulada_s += espera
                 espera *= 2
                 continue
             raise

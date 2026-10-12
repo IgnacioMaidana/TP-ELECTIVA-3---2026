@@ -188,11 +188,15 @@ def contenido_politica() -> list:
           "real supera a la estimada en más de 2 días corridos, la tienda reintegra el costo "
           "del envío. El reintegro se acredita automáticamente, sin necesidad de reclamo."),
 
-        p("7. Garantía", H1),
-        pr("Todos los productos nuevos tienen garantía contra defectos de fabricación. El plazo "
-           "de la garantía <b>se cuenta desde la fecha de entrega real</b> y depende de la "
-           "categoría del producto:", TEXTO),
-        tabla(garantias, [9 * cm, 8 * cm]),
+        # La tabla de garantias se mantiene entera en una pagina: si se parte, el RAG recupera solo
+        # una parte de las filas y no puede responder "cual es la garantia mas corta".
+        KeepTogether([
+            p("7. Garantía", H1),
+            pr("Todos los productos nuevos tienen garantía contra defectos de fabricación. El plazo "
+               "de la garantía <b>se cuenta desde la fecha de entrega real</b> y depende de la "
+               "categoría del producto:", TEXTO),
+            tabla(garantias, [9 * cm, 8 * cm]),
+        ]),
         Spacer(1, 8),
         p("Qué hace la tienda ante un defecto cubierto", H2),
         p("Ante un defecto de fabricación cubierto, la tienda repara el producto, lo reemplaza "

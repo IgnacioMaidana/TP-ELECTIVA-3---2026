@@ -23,7 +23,7 @@ CASOS = [
     ("¿Cuántos clientes hay en Argentina?",
      "SELECT COUNT(*) FROM clientes WHERE pais = 'Argentina'"),
     ("How many products are out of stock?",
-     "SELECT COUNT(*) FROM productos WHERE stock = 0"),
+     "SELECT COUNT(*) FROM productos WHERE stock = 0 AND activo = 1"),
     ("¿Cuántos pedidos fueron cancelados?",
      "SELECT COUNT(*) FROM pedidos WHERE estado = 'cancelado'"),
     ("What is the average rating of all reviews?",

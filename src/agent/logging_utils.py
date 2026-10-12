@@ -23,6 +23,8 @@ def registrar(estado: dict) -> None:
             "idioma": estado.get("idioma"),
             "ruta": estado.get("ruta"),
             "justificacion": estado.get("justificacion"),
+            "intentos_router": estado.get("intentos_router"),
+            "router_respuesta_invalida": estado.get("respuesta_invalida") or None,
             "consulta_documentos": estado.get("consulta_documentos") or None,
             "sql": sql.sql if sql else None,
             "intentos_sql": sql.intentos if sql else None,

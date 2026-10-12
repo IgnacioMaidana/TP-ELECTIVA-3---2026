@@ -51,20 +51,20 @@ Cada tarea es pequeña, verificable y referencia los requisitos que cubre. Marca
 - [x] **T-24** Nodos `rechazar`, `fuera_de_alcance`, `aclarar`. *(RF-11, RF-12, RF-13, CA-11, CA-14, CA-15)*
 - [x] **T-25** `graph.py`: armar el grafo con la ruta híbrida RAG→SQL. **Verificar** CA-08 y CA-20, y la pregunta híbrida del reintegro de envío (regla del PDF §6: más de 2 días de demora + SQL). *(RF-06, RF-17)*
 - [x] **T-26** Inyectar fecha actual y memoria de sesión. **Verificar** CA-16. *(RF-15, D-12)*
-- [X] **T-27** `logging_utils.py`: log JSON por pregunta (ruta, justificación, SQL, chunks, latencia). *(RF-16, RNF-05, CA-10)*
+- [x] **T-27** `logging_utils.py`: log JSON por pregunta (ruta, justificación, SQL, chunks, latencia). *(RF-16, RNF-05, CA-10)*
 
 ## Fase 5 — Interfaz y evaluación (13/10)
 
-- [ ] **T-28** `app.py` en Streamlit: chat, historial, desplegable "Ver SQL" y "Ver fuentes", indicador de ruta usada. *(RF-08, RF-15)*
-- [ ] **T-29** `tests/eval_questions.yaml` con al menos 20 preguntas según spec §8. *(spec §8)*
-- [ ] **T-30** `tests/run_eval.py`: ejecuta la suite y genera tabla de resultados (ruta correcta, respuesta correcta, latencia). *(RNF-03)*
-- [ ] **T-43** Ejecutar la suite de evaluación al menos 2 veces y reportar la variación entre corridas (el modelo no permite fijar la temperatura). *(RNF-02)*
+- [x] **T-28** `app.py` en Streamlit: chat, historial, desplegable "Ver SQL" y "Ver fuentes", indicador de ruta usada. *(RF-08, RF-15)*
+- [x] **T-29** `tests/eval_questions.yaml` con al menos 20 preguntas según spec §8. *(spec §8)*
+- [x] **T-30** `tests/run_eval.py`: ejecuta la suite y genera tabla de resultados (ruta correcta, respuesta correcta, latencia). *(RNF-03)*
+- [x] **T-43** Ejecutar la suite de evaluación al menos 2 veces y reportar la variación entre corridas (el modelo no permite fijar la temperatura). *(RNF-02)*
 - [ ] **T-31** Ejecutar la suite, analizar fallos y ajustar prompts o ejemplos. Repetir hasta un resultado aceptable. *(CA-01 a CA-16)*
 
 ## Fase 6 — Documentación y entrega (14-15/10)
 
 - [ ] **T-32** README: requisitos, instalación, creación y carga de BD, indexado de PDFs, ejecución, ejecución de tests. **Verificar** siguiéndolo en una carpeta limpia. *(RNF-04, CA-19)*
-- [X] **T-33** Capturas y logs de al menos un ejemplo de cada ruta (SQL, RAG, híbrida, rechazo). *(entregable)*
+- [ ] **T-33** Capturas y logs de al menos un ejemplo de cada ruta (SQL, RAG, híbrida, rechazo). *(entregable)*
 - [ ] **T-34** Informe técnico (máx. 10 páginas): modelo de datos, arquitectura, decisiones, ejemplos, evidencias, resultados de la suite. *(entregable)*
 - [ ] **T-35** Verificar que `specs/` contiene todos los artefactos y que `spec.md` refleja los cambios hechos durante la implementación. *(SDD)*
 - [ ] **T-42** Fijar las versiones de las dependencias con `pip freeze > requirements.txt` y verificar que el entorno se recrea. *(RNF-04, constitution §6)*
@@ -100,5 +100,5 @@ Cada tarea es pequeña, verificable y referencia los requisitos que cubre. Marca
 
 1. Cumple lo descrito y su criterio de verificación.
 2. Tiene pruebas, o evidencia, cuando corresponde.
-3. Está documentada (docstrings)
+3. Está documentada (docstrings) y commiteada con su ID.
 4. Si cambió un requisito, la spec se actualizó **antes**.
