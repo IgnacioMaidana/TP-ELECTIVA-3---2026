@@ -33,7 +33,7 @@ Cada tarea es pequeña, verificable y referencia los requisitos que cubre. Marca
 - [x] **T-14** `executor.py`: ejecución con timeout, tope de filas e inyección de `TOP`. *(RF-14, RNF-01)*
 - [x] **T-15** Función `pregunta → SQL → filas` con auto-corrección (2 reintentos). **Verificar** con 5 preguntas reales. *(RF-03, RF-09, CA-01 a CA-04)*
 
-- [ ] **T-41** Evidencia de seguridad para el informe: ejecutar `ejecutar_consulta("DELETE FROM clientes")` (debe fallar en la etapa `validacion`) y probar una inyección contra el LLM; guardar capturas. *(RF-13, CA-11, CA-12)*
+- [x] **T-41** Evidencia de seguridad para el informe: ejecutar `ejecutar_consulta("DELETE FROM clientes")` (debe fallar en la etapa `validacion`) y probar una inyección contra el LLM; guardar capturas. *(RF-13, CA-11, CA-12)*
 
 ## Fase 3 — PDFs y RAG (10/10)
 
@@ -59,16 +59,16 @@ Cada tarea es pequeña, verificable y referencia los requisitos que cubre. Marca
 - [x] **T-29** `tests/eval_questions.yaml` con al menos 20 preguntas según spec §8. *(spec §8)*
 - [x] **T-30** `tests/run_eval.py`: ejecuta la suite y genera tabla de resultados (ruta correcta, respuesta correcta, latencia). *(RNF-03)*
 - [x] **T-43** Ejecutar la suite de evaluación al menos 2 veces y reportar la variación entre corridas (el modelo no permite fijar la temperatura). *(RNF-02)*
-- [ ] **T-31** Ejecutar la suite, analizar fallos y ajustar prompts o ejemplos. Repetir hasta un resultado aceptable. *(CA-01 a CA-16)*
+- [X] **T-31** Ejecutar la suite, analizar fallos y ajustar prompts o ejemplos. Repetir hasta un resultado aceptable. *(CA-01 a CA-16)*
 
 ## Fase 6 — Documentación y entrega (14-15/10)
 
-- [ ] **T-32** README: requisitos, instalación, creación y carga de BD, indexado de PDFs, ejecución, ejecución de tests. **Verificar** siguiéndolo en una carpeta limpia. *(RNF-04, CA-19)*
-- [ ] **T-33** Capturas y logs de al menos un ejemplo de cada ruta (SQL, RAG, híbrida, rechazo). *(entregable)*
+- [x] **T-32** README: requisitos, instalación, creación y carga de BD, indexado de PDFs, ejecución, ejecución de tests. **Verificar** siguiéndolo en una carpeta limpia. *(RNF-04, CA-19)*
+- [x] **T-33** Capturas y logs de al menos un ejemplo de cada ruta (SQL, RAG, híbrida, rechazo). *(entregable)*
 - [ ] **T-34** Informe técnico (máx. 10 páginas): modelo de datos, arquitectura, decisiones, ejemplos, evidencias, resultados de la suite. *(entregable)*
 - [ ] **T-35** Verificar que `specs/` contiene todos los artefactos y que `spec.md` refleja los cambios hechos durante la implementación. *(SDD)*
-- [ ] **T-42** Fijar las versiones de las dependencias con `pip freeze > requirements.txt` y verificar que el entorno se recrea. *(RNF-04, constitution §6)*
-- [ ] **T-36** Exportar o respaldar la base (script de esquema + script/datos generados) y confirmar que los PDFs están en el repo. *(entregable)*
+- [x] **T-42** Fijar las versiones de las dependencias con `pip freeze > requirements.txt` y verificar que el entorno se recrea. *(RNF-04, constitution §6)*
+- [x] **T-36** Exportar o respaldar la base (script de esquema + script/datos generados) y confirmar que los PDFs están en el repo. *(entregable)*
 
 ## Fase 7 — Margen y extras (15-16/10)
 
