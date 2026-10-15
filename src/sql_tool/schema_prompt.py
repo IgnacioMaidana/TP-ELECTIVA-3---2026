@@ -63,6 +63,9 @@ REGLAS_NEGOCIO = """\
   suma pedidos.total ni se cuenta p.id_pedido a secas: usa SUM(detalle_pedidos.subtotal) para ingresos y
   COUNT(DISTINCT p.id_pedido) para la cantidad de pedidos. SUM(pedidos.total) solo es válido sin unir con
   detalle_pedidos.
+- Para preguntas sobre si algo aplica a un pedido o cliente concreto (por ejemplo "¿puedo devolver el pedido N?"),
+  devuelve su estado y sus fechas en vez de filtrar por ellos en el WHERE: así se puede explicar por qué sí o por
+  qué no. Un filtro por estado haría desaparecer el pedido y la consulta no devolvería filas.
 - Si no se indica un período, no se filtra por fecha."""
 
 REGLAS_TSQL = """\

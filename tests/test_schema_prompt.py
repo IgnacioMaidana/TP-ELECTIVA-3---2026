@@ -17,6 +17,10 @@ def test_el_prompt_advierte_sobre_la_duplicacion_de_filas():
     assert "COUNT(DISTINCT p.id_pedido)" in prompt and "SUM(detalle_pedidos.subtotal)" in prompt
 
 
+def test_el_prompt_pide_devolver_el_estado_en_preguntas_sobre_un_caso_concreto():
+    assert "en vez de filtrar por ellos en el WHERE" in construir_prompt_sql()
+
+
 def test_incluye_la_fecha_de_hoy():
     assert "Fecha de hoy: 2026-10-08" in construir_prompt_sql(hoy=date(2026, 10, 8))
 

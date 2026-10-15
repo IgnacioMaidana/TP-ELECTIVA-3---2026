@@ -71,7 +71,7 @@ def mostrar_detalles(meta: dict) -> None:
             st.caption(f"Intentos: {fuentes.get('intentos_sql', 1)} · filas: {fuentes.get('filas', 0)}"
                        + (" (resultado truncado)" if fuentes.get("truncado") else ""))
             if fuentes.get("datos"):
-                st.dataframe(fuentes["datos"], use_container_width=True)
+                st.dataframe(fuentes["datos"], width='stretch')
 
     docs = fuentes.get("documentos") or []
     if docs:
@@ -98,15 +98,15 @@ if "mensajes" not in st.session_state:
 # Barra lateral
 # ---------------------------------------------------------------------------
 with st.sidebar:
-    st.title("🛒 TechNova Assistant")
+    st.title("TechNova Assistant")
     st.caption("Consulta los datos de la tienda y sus documentos, en castellano o en inglés.")
     mostrar = st.checkbox("Mostrar detalles técnicos", value=True)
-    if st.button("🗑️ Nueva conversación", use_container_width=True):
+    if st.button("Nueva conversación", width='stretch'):
         reiniciar_conversacion()
         st.rerun()
     st.subheader("Preguntas de ejemplo")
     for i, ejemplo in enumerate(EJEMPLOS):
-        if st.button(ejemplo, key=f"ej{i}", use_container_width=True):
+        if st.button(ejemplo, key=f"ej{i}", width='stretch'):
             st.session_state.pendiente = ejemplo
     st.divider()
     st.caption("Solo lectura: el asistente no puede modificar datos.")

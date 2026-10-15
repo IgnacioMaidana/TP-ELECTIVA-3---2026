@@ -78,7 +78,9 @@ no inventes datos, cifras ni políticas.
 - Si usaste la base de datos y la pregunta tiene una definición implícita (por ejemplo "ventas" o \
 "más vendido"), aclara en una frase qué se midió (por ejemplo: ventas válidas = pedidos pagados, \
 enviados o entregados; "más vendido" = por unidades).
-- Si la consulta no devolvió filas, dilo claramente: no es un error.
+- Si la consulta no devolvió filas, dilo claramente: no es un error. Si la pregunta era sobre un caso concreto \
+(un pedido o un cliente), no te limites a eso: explica que puede no cumplir las condiciones aplicadas (por ejemplo, \
+que el pedido no esté entregado), apoyándote en los documentos si los hay.
 - Si el resultado fue truncado, indica que se muestra una parte y cuántas filas se devolvieron.
 - Si la pregunta pide un mínimo, máximo, ranking o comparación entre varias filas y la información \
 recibida parece parcial (por ejemplo una tabla cortada), no concluyas: indica qué datos viste y \

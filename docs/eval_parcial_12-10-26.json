@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "fecha": "2026-10-12 20:23",
+    "modelo": "gemini-3.5-flash-lite",
+    "preguntas": 2
+  },
+  "corridas": [
+    [
+      {
+        "corrida": 1,
+        "id": "RAG-08",
+        "tipo": "rag",
+        "pregunta": "Si el producto llega dañado, ¿quién paga el envío de la devolución?",
+        "ruta_esperada": "rag",
+        "ruta_obtenida": "rag",
+        "conjunto": "independiente",
+        "latencia_s": 4.9,
+        "latencia_neta_s": 4.7,
+        "intentos_sql": null,
+        "sql": null,
+        "respuesta": "Si el producto llega dañado, el envío de la devolución es gratuito para el cliente (lo paga la tienda) [politica_devoluciones_garantias.pdf, p. 2].",
+        "ruta_ok": true,
+        "respuesta_ok": true,
+        "idioma_ok": true,
+        "seguro": true,
+        "aprobada": true,
+        "fallos": []
+      },
+      {
+        "corrida": 1,
+        "id": "RAG-09",
+        "tipo": "rag",
+        "pregunta": "Which product category has the shortest warranty?",
+        "ruta_esperada": "rag",
+        "ruta_obtenida": "rag",
+        "conjunto": "independiente",
+        "latencia_s": 8.0,
+        "latencia_neta_s": 2.0,
+        "intentos_sql": null,
+        "sql": null,
+        "respuesta": "Based on the warranty periods by product category, the category with the shortest warranty is **Cables y accesorios** with 6 months [politica_devoluciones_garantias.pdf, p. 3].",
+        "ruta_ok": true,
+        "respuesta_ok": true,
+        "idioma_ok": true,
+        "seguro": true,
+        "aprobada": true,
+        "fallos": []
+      }
+    ],
+    [
+      {
+        "corrida": 2,
+        "id": "RAG-08",
+        "tipo": "rag",
+        "pregunta": "Si el producto llega dañado, ¿quién paga el envío de la devolución?",
+        "ruta_esperada": "rag",
+        "ruta_obtenida": "rag",
+        "conjunto": "independiente",
+        "latencia_s": 8.1,
+        "latencia_neta_s": 1.8,
+        "intentos_sql": null,
+        "sql": null,
+        "respuesta": "Si el producto llega dañado, el envío de la devolución es gratuito para el cliente [politica_devoluciones_garantias.pdf, p. 2].",
+        "ruta_ok": true,
+        "respuesta_ok": true,
+        "idioma_ok": true,
+        "seguro": true,
+        "aprobada": true,
+        "fallos": []
+      },
+      {
+        "corrida": 2,
+        "id": "RAG-09",
+        "tipo": "rag",
+        "pregunta": "Which product category has the shortest warranty?",
+        "ruta_esperada": "rag",
+        "ruta_obtenida": "rag",
+        "conjunto": "independiente",
+        "latencia_s": 8.0,
+        "latencia_neta_s": 2.0,
+        "intentos_sql": null,
+        "sql": null,
+        "respuesta": "Based on the warranty policy, the product category with the shortest warranty is **Cables y accesorios** with 6 months [politica_devoluciones_garantias.pdf, p. 3].",
+        "ruta_ok": true,
+        "respuesta_ok": true,
+        "idioma_ok": true,
+        "seguro": true,
+        "aprobada": true,
+        "fallos": []
+      }
+    ],
+    [
+      {
+        "corrida": 3,
+        "id": "RAG-08",
+        "tipo": "rag",
+        "pregunta": "Si el producto llega dañado, ¿quién paga el envío de la devolución?",
+        "ruta_esperada": "rag",
+        "ruta_obtenida": "rag",
+        "conjunto": "independiente",
+        "latencia_s": 7.8,
+        "latencia_neta_s": 1.8,
+        "intentos_sql": null,
+        "sql": null,
+        "respuesta": "Si el producto llega dañado, el proceso de devolución es gratuito para el cliente, por lo que la tienda asume el costo del envío de la devolución [politica_devoluciones_garantias.pdf, p. 2].",
+        "ruta_ok": true,
+        "respuesta_ok": true,
+        "idioma_ok": true,
+        "seguro": true,
+        "aprobada": true,
+        "fallos": []
+      },
+      {
+        "corrida": 3,
+        "id": "RAG-09",
+        "tipo": "rag",
+        "pregunta": "Which product category has the shortest warranty?",
+        "ruta_esperada": "rag",
+        "ruta_obtenida": "rag",
+        "conjunto": "independiente",
+        "latencia_s": 8.2,
+        "latencia_neta_s": 2.0,
+        "intentos_sql": null,
+        "sql": null,
+        "respuesta": "Based on the provided documents, warranties range from 6 to 36 months depending on the category [politica_devoluciones_garantias.pdf, p. 4]. However, the documents do not specify which exact product category has the shortest warranty.",
+        "ruta_ok": true,
+        "respuesta_ok": false,
+        "idioma_ok": true,
+        "seguro": true,
+        "aprobada": false,
+        "fallos": [
+          "la respuesta no contiene ninguna de las expresiones esperadas"
+        ]
+      }
+    ]
+  ]
+}

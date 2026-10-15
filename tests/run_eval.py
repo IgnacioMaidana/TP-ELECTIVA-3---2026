@@ -17,7 +17,8 @@ Cada pregunta se evalua en cuatro dimensiones:
 Una pregunta esta APROBADA si cumple las cuatro.
 
 Genera docs/eval_resultados.md (tablas para el informe) y docs/eval_resultados.json.
-Consume cuota del LLM gratuito: cada corrida usa unas 70 llamadas.
+Consume cuota del LLM gratuito: cada corrida usa unas 100 llamadas. NO ejecutar otras
+pruebas ni el chat mientras corre: compiten por la cuota y distorsionan la latencia.
 """
 import argparse
 import json
@@ -213,10 +214,13 @@ def escribir_reporte(corridas: list, meta: dict, salida_md: Path = None, salida_
 
     if len(corridas) > 1:
         lineas += ["", "## Variación entre corridas", "",
-                   "| Corrida | Aprobadas | % |", "|---|---|---|"]
+                   "| Corrida | Aprobadas | % | Latencia media | Latencia neta | ≤ 15 s |", "|---|---|---|---|---|---|"]
         for c in corridas:
             m = resumir(c)["TOTAL"]
-            lineas.append(f"| {c[0]['corrida'] if c else '-'} | {m['aprobadas']} de {m['n']} | {m['pct_aprobadas']} % |")
+            lineas.append(f"| {c[0]['corrida'] if c else '-'} | {m['aprobadas']} de {m['n']} | {m['pct_aprobadas']} % | "
+                          f"{m['latencia_media_s']} s | {m['latencia_neta_media_s']} s | {m['pct_bajo_limite']} % |")
+        lineas += ["", "Si la latencia neta cambia mucho entre corridas, la API estuvo lenta o hubo otras "
+                   "ejecuciones al mismo tiempo (compiten por la misma cuota). No correr dos evaluaciones a la vez."]
         por_id = {}
         for r in todos:
             por_id.setdefault(r["id"], []).append(r)
