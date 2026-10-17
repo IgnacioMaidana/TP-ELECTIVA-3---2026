@@ -65,8 +65,8 @@ Cada tarea es pequeña, verificable y referencia los requisitos que cubre. Marca
 
 - [x] **T-32** README: requisitos, instalación, creación y carga de BD, indexado de PDFs, ejecución, ejecución de tests. **Verificar** siguiéndolo en una carpeta limpia. *(RNF-04, CA-19)*
 - [x] **T-33** Capturas y logs de al menos un ejemplo de cada ruta (SQL, RAG, híbrida, rechazo). *(entregable)*
-- [ ] **T-34** Informe técnico (máx. 10 páginas): modelo de datos, arquitectura, decisiones, ejemplos, evidencias, resultados de la suite. *(entregable)*
-- [ ] **T-35** Verificar que `specs/` contiene todos los artefactos y que `spec.md` refleja los cambios hechos durante la implementación. *(SDD)*
+- [X] **T-34** Informe técnico (máx. 10 páginas): modelo de datos, arquitectura, decisiones, ejemplos, evidencias, resultados de la suite. *(entregable)*
+- [X] **T-35** Verificar que `specs/` contiene todos los artefactos y que `spec.md` refleja los cambios hechos durante la implementación. *(SDD)*
 - [x] **T-42** Fijar las versiones de las dependencias con `pip freeze > requirements.txt` y verificar que el entorno se recrea. *(RNF-04, constitution §6)*
 - [x] **T-36** Exportar o respaldar la base (script de esquema + script/datos generados) y confirmar que los PDFs están en el repo. *(entregable)*
 
@@ -74,7 +74,7 @@ Cada tarea es pequeña, verificable y referencia los requisitos que cubre. Marca
 
 - [ ] **T-44** Documentar en el informe el hallazgo de la duplicación de filas (consulta del mes anterior: 47 pedidos y USD 36.773,15 contra 24 y USD 13.605,55 reales) y su corrección en el prompt y los ejemplos. *(RNF-02)*
 - [ ] **T-45** Regenerar los datos (`python -m scripts.generar_datos`) el día de la suite de evaluación y del coloquio: los casos límite de la regla de 30 días son relativos a la fecha de generación. *(RF-17)*
-- [ ] **T-37** Revisión final del repositorio y entrega **antes de las 23:59 del 16/10**.
+- [X] **T-37** Revisión final del repositorio y entrega **antes de las 23:59 del 16/10**.
 - [ ] **T-38** *(opcional)* LangSmith: activar variables de entorno y capturar trazas. *(promoción adicional)*
 - [ ] **T-39** *(opcional)* Despliegue en la nube. Solo si todo lo anterior está cerrado.
 - [ ] **T-40** Preparar demo y respuestas para el coloquio (23 o 30/10): por qué grafo explícito, cómo se evita el SQL peligroso, límites conocidos.
